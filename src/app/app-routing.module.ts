@@ -143,8 +143,17 @@ const routes: Routes = [
     loadChildren: () => import('./pages/price-table/price-table.module' ).then(m => m.PriceTableModule)
   }, 
   {
+    path: 'notificacao',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/notificacao/notificacao.module' ).then(m => m.NotificacaoModule)
+  }, 
+  {
     path: 'confirmacao',
     component: ConfirmacaoComponent
+  },
+  {
+    path: 'visualizacao',
+    loadChildren: () => import('./pages/agenda/agenda.module' ).then(m => m.AgendaModule)
   },
   {
     path: '**',

@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate{
   
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const token = localStorage.getItem('token');
-    debugger
+    
     if (route.routeConfig?.path === 'confirmacao') {
       return true; // 🔓 libera
     }

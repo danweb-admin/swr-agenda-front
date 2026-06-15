@@ -178,7 +178,7 @@ export class GenerateContractAnualTableComponent implements OnInit, AfterViewIni
             alert('Selecione pelo menos uma locação');
             return;
         }
-        debugger
+        
         this.generateContractService.generateMultipleContracts(selecionadas.map(x => x.id).toString()).subscribe((resp: any) => {
             if (resp == null){
                 this.toastr.success('Contrato gerado com sucesso!');

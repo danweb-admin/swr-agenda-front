@@ -1,0 +1,36 @@
+<mat-card class="notificacao-table">
+    <mat-card-title class="notificacao-table__header">
+      <h5 class="notificacao-table__title">Lista de Notificações</h5>
+
+      <button mat-icon-button (click)="openDialog(null)">
+        <mat-icon>control_point</mat-icon>
+      </button>
+    </mat-card-title>
+  
+    <mat-card-content >
+        <table class="notificacao-table__table">
+            <thead>
+                <tr>
+                    <th class="notificacao-table__table-row-title">Locação</th>
+                    <th class="notificacao-table__table-row-title">Status</th>
+                    <th class="notificacao-table__table-row-title">Resposta</th>
+                    <th class="notificacao-table__table-row-title">Envio</th>
+                    <th class="notificacao-table__table-row-title">Telefone</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of dataSource" (click)="openDialog(item)" class="notificacao-table__row">
+                    <td class="notificacao-table__cell">{{locacaoDescribe(item)}}</td>
+                    <td class="notificacao-table__cell">{{statusDescribe(item.status)}}</td>
+                    <td class="notificacao-table__cell">{{respostaDescribe(item.resposta)}}</td>
+                    <td class="notificacao-table__cell">{{item.dataEnvio | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                    <td class="notificacao-table__cell">{{formatarTelefone(item.telefone) }}</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </mat-card-content>
+  </mat-card>
+  
+  
