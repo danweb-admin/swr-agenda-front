@@ -148,6 +148,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/notificacao/notificacao.module' ).then(m => m.NotificacaoModule)
   }, 
   {
+    path: 'logistica',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/logistics/logistics.module' ).then(m => m.LogisticsModule)
+  }, 
+  {
     path: 'confirmacao',
     component: ConfirmacaoComponent
   },

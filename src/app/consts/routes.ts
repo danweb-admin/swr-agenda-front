@@ -26,6 +26,7 @@ export enum routes {
   INVOICING = '/faturamento',
   PRICE_TABLE = '/tabela-preco',
   NOTIFICACAO = '/notificacao',
+  LOGISTICS = '/logistica',
   VISUALIZACAO = '/visualizacao',
 
 }

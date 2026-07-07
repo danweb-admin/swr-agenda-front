@@ -1,0 +1,22 @@
+mat-form-field{
+    width:100%;
+}
+
+.row{
+    display:flex;
+    gap:16px;
+}
+
+.row mat-form-field{
+    flex:1;
+}
+
+mat-dialog-content{
+    min-width:650px;
+    overflow:hidden;
+}
+
+textarea{
+    resize:none;
+}
+
