@@ -1,0 +1,71 @@
+<div class="layout">
+    
+    <!-- 🔝 Topbar -->
+    <div class="topbar">
+        <span class="title">Agenda</span>
+    </div>
+    
+    <!-- 📦 Conteúdo -->
+    <div class="content">
+        
+        <div class="card">
+            
+            <mat-card class="calendar-table" >
+                <mat-card-title class="calendar-table__header">
+                    <h5 class="calendar-table__title">Agenda do dia {{time | date:'dd/MM/yyyy EE' : '' : 'pt-BR'}}</h5>
+                    
+                    <div class="row">
+                        <button mat-icon-button (click)="lastDay()">
+                            <mat-icon>arrow_back_ios</mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="today()">
+                            HOJE
+                        </button>
+                        <button mat-icon-button (click)="followingDay()">
+                            <mat-icon>arrow_forward_ios</mat-icon>
+                        </button>
+                        
+                    </div>
+                </mat-card-title>
+                
+                <mat-card-content >
+                    <table class="calendar-table__table" >
+                        <thead>
+                            <th style="text-align: left;" class="padding-left-5"> EQUIPAMENTO </th>
+                            <th style="text-align: left;" class="padding-left-5"> HORÁRIO </th>
+                            <th style="text-align: left;" class="padding-left-5"> STATUS </th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let element of dataSource">
+                                <td style="width: 25%;">
+                                    <div class="padding-left-5">
+                                        {{element.equipament.name}}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div *ngFor="let item of element.calendars" >
+                                        <div class="row padding-left-5">
+                                            {{showTime(item)}}
+                                        </div>
+                                    </div>
+                                </td>
+                                
+                                <td>
+                                    <div *ngFor="let item of element.calendars" >
+                                        <div class="calendar-table__content-badge" [ngClass]="statusToString(item.status)">
+                                            {{statusToString(item.status)}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </mat-card-content>
+            </mat-card>
+            
+            
+        </div>
+        
+    </div>
+    
+</div>

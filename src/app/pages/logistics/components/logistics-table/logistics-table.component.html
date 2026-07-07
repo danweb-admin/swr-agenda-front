@@ -1,0 +1,101 @@
+<mat-card class="table-card">
+    <mat-card-title>
+        <div class="header-actions">
+            <mat-form-field appearance="outline" class="driver-filter">
+                <mat-label>Motorista</mat-label>
+                <mat-select [(value)]="driverSelected" (selectionChange)="filterDriver()">
+                
+                    <mat-option [value]="null">
+                        Todos
+                    </mat-option>
+                    <mat-option *ngFor="let driver of drivers" [value]="driver.id">
+                        {{ driver.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="openDialog()">Novo Evento</button>
+
+        </div>
+    </mat-card-title>
+<mat-card-content>
+    <table>
+        <thead>
+            <tr>
+                <th>Hora</th>
+                <th>Tipo</th>
+                <th>Motorista</th>
+                <th>Placa</th>
+                <th>Equipamento/Cliente</th>
+                <th>Local</th>
+                <th>Observação</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of filteredLogistics">
+                <td class="hora">
+                    {{item.dataHora | date:'HH:mm'}}
+                </td>
+                <td>
+                    <span
+                    class="badge"
+                    [ngClass]="{
+                        
+                        entrega:item.tipo==1,
+                        recolha:item.tipo==2,
+                        evento:item.tipo==3
+                        
+                    }">
+                    {{getTipo(item.tipo)}}
+                </span>
+            </td>
+            <td>{{item.motorista}}</td>
+            <td>{{item.placa}}</td>
+            <td class="col-descricao">
+                
+                <div class="descricao">
+                    <span class="equipamento">
+                        {{ item.tipo == 3 ? item.titulo : item.equipamento }}
+                    </span>
+                    <span class="cliente" *ngIf="item.tipo != 3">
+                        {{ item.cliente }} - {{item.cidade}}
+                    </span>
+                    <span class="cliente" *ngIf="item.tipo == 3">
+                        {{ item.descricao }} 
+                    </span>
+                </div>
+            </td>
+            <td>
+                {{item.endereco}}
+            </td>
+            
+            <td>
+                {{item.observacao}}
+            </td>
+            <td>
+                <mat-icon
+                color="primary"
+                *ngIf="item.concluido">
+                check_circle
+            </mat-icon>
+            <mat-icon
+            color="warn"
+            *ngIf="!item.concluido">
+            radio_button_unchecked
+        </mat-icon>
+    </td>
+    <td>
+        <button
+        mat-icon-button
+        (click)="editar.emit(item)">
+        <mat-icon>
+            edit
+        </mat-icon>
+    </button>
+</td>
+</tr>
+</tbody>
+</table>
+</mat-card-content>
+</mat-card>

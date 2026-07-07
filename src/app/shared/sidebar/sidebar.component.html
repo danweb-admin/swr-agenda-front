@@ -63,6 +63,12 @@
         </mat-list-item>
         
       </div>
+  <mat-list-item *ngIf="isAdmin" routerLink="{{routes.NOTIFICACAO}}" routerLinkActive="active">
+    <mat-icon>notifications</mat-icon> Notificação
+  </mat-list-item>
+  <mat-list-item *ngIf="isAdmin" routerLink="{{routes.LOGISTICS}}" routerLinkActive="active">
+    <mat-icon>local_shipping</mat-icon> Logistica
+  </mat-list-item>
   <mat-list-item routerLink="{{routes.TYPOGRAPHY}}" routerLinkActive="active" [style.display]="'none'">
     <mat-icon>text_fields</mat-icon> Typography
   </mat-list-item>

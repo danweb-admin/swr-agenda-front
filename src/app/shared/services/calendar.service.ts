@@ -24,6 +24,13 @@ export class CalendarService {
     }));
   }
 
+  getCalendarByDayVisualizacao(date: string): Observable<Calendar[]>{
+    return this.http.get(`${environment.URL_API}${URL_CALENDARS}/visualizacao?date=${date}`)
+    .pipe(map((resp: Calendar[]) => {
+      return resp;
+    }));
+  }
+
   getCalendarAll(date: string): Observable<Calendar[]>{
     return this.http.get(`${environment.URL_API}${URL_CALENDARS}/get-all/?date=${date}`)
     .pipe(map((resp: Calendar[]) => {

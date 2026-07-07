@@ -24,7 +24,9 @@ export enum routes {
   CLIENT_EQUIPMENT = '/equipamentos-cliente',
   BULK_SCHEDULING = '/agenda-em-lote',
   INVOICING = '/faturamento',
-  PRICE_TABLE = '/tabela-preco'
-
+  PRICE_TABLE = '/tabela-preco',
+  NOTIFICACAO = '/notificacao',
+  LOGISTICS = '/logistica',
+  VISUALIZACAO = '/visualizacao',
 
 }
