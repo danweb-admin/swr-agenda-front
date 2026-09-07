@@ -12,28 +12,29 @@ const URL_LOGISTICS = '/api/v1/logistics';
 export class LogisticsService {
   
   constructor(private http: HttpClient){
-
+    
   }
-
+  
   getByDate(data: Date): Observable<any[]>{
-
-  const dataFormatada = data.toISOString().split('T')[0];
-    console.log(dataFormatada)
-
+    const ano = data.getFullYear();
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const dia = String(data.getDate()).padStart(2, '0');
+    
+    const dataFormatada = `${ano}-${mes}-${dia}`;
+    
     return this.http.get(`${environment.URL_API}${URL_LOGISTICS}/date?data=${dataFormatada}`)
     .pipe(map((resp: any[]) => {
       return resp;
     }));
   }
-
+  
   save(data): Observable<any>{
-    debugger
     return this.http.post(`${environment.URL_API}${URL_LOGISTICS}`,data)
     .pipe(map((resp: any) => {
       return resp;
     }));
   }
-
+  
   update(data): Observable<any>{
     return this.http.put(`${environment.URL_API}${URL_LOGISTICS}/${data.id}`,data)
     .pipe(map((resp: any) => {
@@ -41,13 +42,41 @@ export class LogisticsService {
     }));
   }
 
-  modelUpload(formData): any {
-    this.http.post(`${environment.URL_API}${URL_LOGISTICS}/upload`, formData, {reportProgress: true, observe: 'events'})
-        .subscribe({
-          next: (event) => {
-          console.log(event);
-        },
-        error: (err: HttpErrorResponse) => console.log(err)
-      });
+  updateDriver(data): Observable<any>{
+    
+    return this.http.put(`${environment.URL_API}${URL_LOGISTICS}/atualizar-motorista/${data.id}`,data)
+    .pipe(map((resp: any) => {
+      return resp;
+    }));
+  }
+
+   updateObservacao(data): Observable<any>{
+    
+    return this.http.put(`${environment.URL_API}${URL_LOGISTICS}/atualizar-observacao/${data.id}`,data)
+    .pipe(map((resp: any) => {
+      return resp;
+    }));
+  }
+
+  updateDataLog(data): Observable<any>{
+    
+    return this.http.put(`${environment.URL_API}${URL_LOGISTICS}/atualizar-data-logistica/${data.id}`,data)
+    .pipe(map((resp: any) => {
+      return resp;
+    }));
+  }
+  
+  complete(id: string, concluido: boolean) {
+    return this.http.put(`${environment.URL_API}${URL_LOGISTICS}/${id}/complete`, concluido)
+    .pipe(map((resp: any) => {
+      return resp;
+    }));
+  }
+
+  uncomplete(id: string, concluido: boolean) {
+    return this.http.put(`${environment.URL_API}${URL_LOGISTICS}/${id}/uncomplete`, concluido)
+    .pipe(map((resp: any) => {
+      return resp;
+    }));
   }
 }

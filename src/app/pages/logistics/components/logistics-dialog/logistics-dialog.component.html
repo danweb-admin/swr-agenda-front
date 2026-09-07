@@ -24,7 +24,7 @@
         <div class="row">
             <mat-form-field appearance="outline" >
                 <mat-label>Data</mat-label>
-                <input matInput [matDatepicker]="dp" [min]="todayDate" placeholder="Data" formControlName="dataHora" (focus)="dp.open()">
+                <input matInput [matDatepicker]="dp"  placeholder="Data" formControlName="dataHora" (focus)="dp.open()">
                 <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                 <mat-datepicker #dp></mat-datepicker>
             </mat-form-field>
@@ -49,7 +49,7 @@
             <mat-form-field appearance="outline">
                 <mat-label>Motorista</mat-label>
                 <mat-select formControlName="driverId">
-                    <mat-option  *ngFor="let d of data.motoristas" [value]="d.id">{{d.name}}</mat-option>
+                    <mat-option  *ngFor="let d of drivers" [value]="d.id">{{d.name}}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>

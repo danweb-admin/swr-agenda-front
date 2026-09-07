@@ -222,6 +222,7 @@ const moment = _rollupMoment || _moment;
     loadConsumables(): void {
       if (this.data.element == null)
         return;
+      
 
 			this.createConsumableForms(this.data.element.calendarEquipamentConsumables);
 		}
@@ -234,6 +235,7 @@ const moment = _rollupMoment || _moment;
 		}
 
     createConsumableForms(consumables: any[]): void {
+      
       for (let item of consumables) {
 
         if (!item.active)
@@ -252,6 +254,8 @@ const moment = _rollupMoment || _moment;
             totalValue: [{value: item.totalValue.toFixed(2).replace('.',','), disabled: true}],
             createdAt: new Date()
           });
+
+          
       
           formGroup.addControl('id', new FormControl(item.id));
       
@@ -259,13 +263,17 @@ const moment = _rollupMoment || _moment;
           continue;
         }
 
+       
+
 				const existingItem = this.data.element?.calendarEquipamentConsumables.find(e => e.consumableId === item.id);
         
+        
+
 				const formGroup = this.formBuilder.group({
           id: [existingItem ? existingItem.id : '', Validators.required],
 					name: [{value: item.consumable.name, disabled: true}],
 					active: [existingItem ? existingItem.active : item.active, Validators.required],
-					value: [existingItem ? existingItem.value : item.value, Validators.required],
+					value: [existingItem ? existingItem.value : item.value.toFixed(2).replace('.',','), Validators.required],
 					equipamentId: [item.equipamentId],
 					consumableId: [item.consumableId],
           calendarId: [existingItem ? this.data.element.id : null],
@@ -376,6 +384,7 @@ const moment = _rollupMoment || _moment;
     }
 
     onChangeEquipament(event): void {
+      
       this.calendarEquipamentConsumables.clear();
       this.calendarSpecificationConsumables.clear();
 
@@ -436,6 +445,7 @@ const moment = _rollupMoment || _moment;
 
     adjustFormValues(){
 			this.calendarEquipamentConsumables.controls.forEach((control, index) => {
+        
 				const currentValue = control.get('value').value.toString();
 				const newValue  = currentValue.replace(',', '.');
         control.get('value').patchValue(newValue);
@@ -500,7 +510,7 @@ const moment = _rollupMoment || _moment;
     }
 
     changeValueEquipamentConsumables(i){
-
+      
       const amount = this.calendarEquipamentConsumables.controls[i].get('amount').value;
       const value = this.calendarEquipamentConsumables.controls[i].get('value').value;
 

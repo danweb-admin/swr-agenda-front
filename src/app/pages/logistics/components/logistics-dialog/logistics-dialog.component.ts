@@ -5,7 +5,9 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { MY_FORMATS } from 'src/app/consts/my-format';
+import { Person } from 'src/app/shared/models/person';
 import { LogisticsService } from 'src/app/shared/services/logistics.service';
+import { PersonService } from 'src/app/shared/services/people.service';
 
 @Component({
     selector: 'app-logistics-dialog',
@@ -19,13 +21,15 @@ import { LogisticsService } from 'src/app/shared/services/logistics.service';
 export class LogisticsDialogComponent implements OnInit {
     
     form!: FormGroup;
-    
+    drivers: any[] = [];
+
     salvando = false;
     todayDate;
     
     constructor(
         private fb: FormBuilder,
         private logisticsService: LogisticsService,
+        private personService: PersonService,
         private toastr: ToastrService,
         private dialogRef: MatDialogRef<LogisticsDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any
@@ -54,7 +58,8 @@ export class LogisticsDialogComponent implements OnInit {
                 hora: this.getHora(this.data.evento.dataHora)
             });
         }
-        this.ajustesCSS()
+        this.ajustesCSS();
+        this.getPeople();
         this.form.markAllAsTouched();
     }
     
@@ -148,7 +153,7 @@ export class LogisticsDialogComponent implements OnInit {
         );
         
         control?.setErrors(null);
-
+        
         
     }
     
@@ -168,6 +173,12 @@ export class LogisticsDialogComponent implements OnInit {
         ('0' + date.getHours()).slice(-2) + ':' +
         ('0' + date.getMinutes()).slice(-2) + ':00';
         
+    }
+    
+    getPeople(): void {
+        this.personService.loadPeople(true).subscribe((resp: Person[]) => {
+            this.drivers = resp.filter(x => x.personType === 'M');
+        })
     }
     
 }

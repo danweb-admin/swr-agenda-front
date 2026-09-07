@@ -19,12 +19,18 @@ import { LogisticsRoutingModule } from './logistics-routing.module';
 import { LogisticsPageComponent } from './containers/logistics-page.component';
 import { LogisticsTableComponent } from './components/logistics-table/logistics-table.component';
 import { LogisticsDialogComponent } from './components/logistics-dialog/logistics-dialog.component';
+import { DriverDialogComponent } from './components/driver-dialog/driver-dialog.component';
+import { ObservationDialogComponent } from './components/observation-dialog/observation-dialog.component';
+import { DataLogDialogComponent } from './components/data-log-dialog/data-log-dialog.component';
 
 @NgModule({
   declarations: [
       LogisticsPageComponent,
       LogisticsTableComponent,
       LogisticsDialogComponent,
+      DriverDialogComponent,
+      ObservationDialogComponent,
+      DataLogDialogComponent
   ],
   imports: [
     CommonModule,

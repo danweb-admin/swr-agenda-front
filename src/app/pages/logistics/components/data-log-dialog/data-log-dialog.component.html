@@ -1,0 +1,17 @@
+<h3 >Atualizar Hora Logística</h3>
+<div mat-dialog-content>
+    <form [formGroup]="form" >
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="outline">
+                    <mat-label>Hora Logistica</mat-label>
+                    <input  type="time" matInput formControlName="horaLogistica" />
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="onNoClick()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()">Salvar</button>
+</div>
