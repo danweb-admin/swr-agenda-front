@@ -136,3 +136,23 @@ mat-icon{
     }
 
 }
+
+.observacao-cell {
+    width: 300px;
+    min-width: 300px;
+    max-width: 300px;
+    vertical-align: top;
+}
+
+.observacao-preview {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* quantidade de linhas */
+    -webkit-box-orient: vertical;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.observacao-preview * {
+    margin: 0 !important;
+}

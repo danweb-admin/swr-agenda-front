@@ -32,7 +32,7 @@ import { CalendarDialogComponent } from 'src/app/pages/calendar/components/calen
   })
   export class SchedulesTableComponent implements OnInit, AfterViewInit{
     
-    displayedColumns: string[] = ['data','horario','equipamento','locatario','tecnica','motorista','status'];
+    displayedColumns: string[] = ['data','horario','equipamento','locatario','tecnica','motorista','status','statusPagamento'];
     @ViewChild('inputSearch') inputSearch: ElementRef;
     dataSource: MatTableDataSource<Calendar> = new MatTableDataSource<Calendar>();
     selection = new SelectionModel<Calendar>(true, []);
@@ -72,7 +72,8 @@ import { CalendarDialogComponent } from 'src/app/pages/calendar/components/calen
         equipamentId: [],
         techniqueId: [null],
         driverList: [null],
-        status: [null]
+        status: [null],
+        statusPagamento: [null]
       });
       this.onChanges();
     }
@@ -187,6 +188,18 @@ import { CalendarDialogComponent } from 'src/app/pages/calendar/components/calen
       return ret;
     }
 
+    statusPagamentoToString(status){
+      let ret = '';
+      
+      if (status == 'paid'){
+        ret = 'Pago';
+      }else if (status == 'pending'){
+        ret = 'Pendente';
+      }
+
+      return ret;
+    }
+
     onSubmit(): void{
       let startDate = this.form.value.startDate.format('yyyy-MM-DD');
       let endDate = this.form.value.endDate.format('yyyy-MM-DD');
@@ -195,15 +208,18 @@ import { CalendarDialogComponent } from 'src/app/pages/calendar/components/calen
       let techniqueId = this.form.value.techniqueId === null ? '' : this.form.value.techniqueId;
       let equipamentIds = this.form.value.equipamentId === null ? '' : this.form.value.equipamentId;
       let status = this.form.value.status === null ? '' : this.form.value.status;
+      let statusPagamento = this.form.value.statusPagamento === null ? '' : this.form.value.statusPagamento;
 
       if (this.form.value.client !== null && this.form.value.client !== ''){
         clientId = this.form.value.client.id;
       }
 
-      this.calendarService.schedules(startDate, endDate, clientId, equipamentIds, driverList,techniqueId, status)
+      this.calendarService.schedules(startDate, endDate, clientId, equipamentIds, driverList,techniqueId, status, statusPagamento)
         .subscribe((resp: Calendar[]) => {
           this.dataSource = new MatTableDataSource<Calendar>();
           this.dataSource = new MatTableDataSource<Calendar>(resp);
+
+          console.log(this.dataSource)
         })
     }
 

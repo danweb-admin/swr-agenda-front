@@ -18,5 +18,6 @@ export interface Calendar {
     startTime: string,
     endTime1: string,
     endTime: string,
+    paymentStatus: string;
     calendarSpecifications: CalendarSpecifications[]
   }

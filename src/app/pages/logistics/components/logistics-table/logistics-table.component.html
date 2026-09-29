@@ -13,7 +13,18 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+
+            <div class="calendar-table-wrapper__search">
+                <input matInput class="calendar-table-wrapper__search-input" [matDatepicker]="dp"  placeholder="Data locação" #inputSearch (dateInput)="applyFilter($event)" >
+                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                <mat-datepicker #dp></mat-datepicker>
+            </div>
+            
             <button mat-raised-button color="primary" (click)="openDialog()">Novo Evento</button>
+            <button mat-raised-button color="primary" (click)="gerarDescritivo()">
+                <mat-icon>description</mat-icon>
+                    Gerar Descritivo
+            </button>
 
         </div>
     </mat-card-title>
@@ -21,6 +32,8 @@
     <table>
         <thead>
             <tr>
+                <th>Finalizado</th>
+                <th>Hora Log</th>
                 <th>Hora</th>
                 <th>Tipo</th>
                 <th>Motorista</th>
@@ -29,11 +42,21 @@
                 <th>Local</th>
                 <th>Observação</th>
                 <th>Status</th>
-                <th></th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of filteredLogistics">
+                <td class="checkbox-cell">
+                    <input
+                        type="checkbox"
+                        [(ngModel)]="item.concluido"
+                        (change)="alterarStatus(item)"
+                    />
+                    </td>
+                <td class="hora" (click)="openDialogHoraLog(item)">
+                    {{item.dataHoraLogistica | date:'HH:mm'}}
+                </td>
                 <td class="hora">
                     {{item.dataHora | date:'HH:mm'}}
                 </td>
@@ -50,7 +73,7 @@
                     {{getTipo(item.tipo)}}
                 </span>
             </td>
-            <td>{{item.motorista}}</td>
+            <td (click)="openDialogDriver(item,false)">{{item.motorista}}</td>
             <td>{{item.placa}}</td>
             <td class="col-descricao">
                 
@@ -70,7 +93,7 @@
                 {{item.endereco}}
             </td>
             
-            <td>
+            <td (click)="openDialogObservation(item)">
                 {{item.observacao}}
             </td>
             <td>
@@ -88,9 +111,9 @@
     <td>
         <button
         mat-icon-button
-        (click)="editar.emit(item)">
+        (click)="abrirObservacao(item.observacaoGoogle)">
         <mat-icon>
-            edit
+            note_alt
         </mat-icon>
     </button>
 </td>
@@ -99,3 +122,9 @@
 </table>
 </mat-card-content>
 </mat-card>
+
+<app-observation-dialog
+    *ngIf="showObservacao"
+    [observacao]="observacaoSelecionada"
+    (close)="fecharObservacao()">
+</app-observation-dialog>

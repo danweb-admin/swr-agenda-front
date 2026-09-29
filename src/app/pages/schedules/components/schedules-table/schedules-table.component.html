@@ -11,7 +11,7 @@
                             <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                             <mat-datepicker #dp></mat-datepicker>
                         </div>
-        
+                        
                         <div class="availability-table-wrapper__separate">
                             <input matInput class="availability-table-wrapper__search-input" [matDatepicker]="dp1"  placeholder="Data Final"  formControlName="endDate" (focus)="dp1.open()">
                             <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
@@ -31,8 +31,16 @@
                             <mat-select multiple formControlName="driverList" class="availability-table-wrapper__search-input" placeholder="Motorista">
                                 <mat-option value="">Todos</mat-option>
                                 <mat-option *ngFor="let item of driverResult" [value]="item.id">{{item.name}}</mat-option>
-                              </mat-select>
+                            </mat-select>
                         </div>
+                        <div class="availability-table-wrapper__separate">
+                            <mat-select multiple formControlName="statusPagamento" class="availability-table-wrapper__search-input" placeholder="Status Pagamento">
+                                <mat-option value="paid">Pago</mat-option>
+                                <mat-option value="pending">Pendente</mat-option>
+                                
+                            </mat-select>
+                        </div>
+                        
                     </div>
                     
                     <div  class="row availability-table-wrapper__search">
@@ -51,25 +59,25 @@
                         
                         <div class="availability-table-wrapper__separate">
                             <input matInput placeholder="Busca Cliente" aria-label="State" [matAutocomplete]="auto"  formControlName="client" class="availability-table-wrapper__search-input1" style="margin-top: 3px;">
-
+                            
                             <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
                                 <mat-option *ngIf="isLoading" class="is-loading">Carregando...</mat-option>
                                 <ng-container *ngIf="!isLoading">
                                     <mat-option *ngFor="let option of clientResult" [value]="option">
-                                    <span>{{ option.name }} - {{option.city.nome}} - {{option.state.sigla}}</span>
-                
+                                        <span>{{ option.name }} - {{option.city.nome}} - {{option.state.sigla}}</span>
+                                        
                                     </mat-option>
                                 </ng-container>
-                                </mat-autocomplete>
-                                <span *ngIf="notFound">Não encontrado.</span>
+                            </mat-autocomplete>
+                            <span *ngIf="notFound">Não encontrado.</span>
                         </div>
-        
+                        
                         <button mat-raised-button color="primary" [disabled]="!form.valid">Buscar</button>
                     </div>
                 </form>
             </div>
         </div>
-    
+        
         <mat-card-content >
             <table class="availability-table__table" mat-table [dataSource]="dataSource">
                 <ng-container matColumnDef="data" >
@@ -87,29 +95,38 @@
                         <span style="float: left;" >{{descriptionSpecifications(element)}} </span>
                     </td>
                 </ng-container>
-
+                
                 <ng-container matColumnDef="locatario" >
                     <th class="availability-table__table-header" mat-header-cell *matHeaderCellDef > LOCATÁRIO </th>
                     <td class="availability-table__table-body" mat-cell *matCellDef="let element">{{showClientCity(element)}}</td>
                 </ng-container>
-
                 
-
+                
+                
                 <ng-container matColumnDef="tecnica" >
                     <th class="availability-table__table-header" mat-header-cell *matHeaderCellDef > TÉCNICA </th>
                     <td class="availability-table__table-body" mat-cell *matCellDef="let element"> {{element.technique?.name}} </td>
                 </ng-container>
-
+                
                 <ng-container matColumnDef="motorista" >
                     <th class="availability-table__table-header" mat-header-cell *matHeaderCellDef > MOTORISTA </th>
                     <td class="availability-table__table-body" mat-cell *matCellDef="let element"> {{element.driver?.name}} </td>
                 </ng-container>
-
+                
                 <ng-container matColumnDef="status" >
                     <th class="availability-table__table-header" mat-header-cell *matHeaderCellDef > STATUS </th>
                     <td class="availability-table__table-body" mat-cell *matCellDef="let element">
                         <div class="availability-table__content-badge" [ngClass]="statusToString(element.status)">
                             {{statusToString(element.status)}}
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="statusPagamento" >
+                    <th class="availability-table__table-header" mat-header-cell *matHeaderCellDef > STATUS PGTO</th>
+                    <td class="availability-table__table-body" mat-cell *matCellDef="let element">
+                        <div class="availability-table__content-badge1" >
+                            {{statusPagamentoToString(element.paymentStatus)}}
                         </div>
                     </td>
                 </ng-container>
