@@ -173,7 +173,7 @@ export class LogisticsTableComponent implements OnInit {
     
     abrirObservacao(item: any): void {
         
-        this.observacaoSelecionada = item;
+        this.observacaoSelecionada = item.observacaoGoogle;
         this.showObservacao = true;
     }
     

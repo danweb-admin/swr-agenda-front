@@ -24,6 +24,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { PersonDialogUpdateComponent } from './components/person-dialog-update/person-dialog-update.component';
 import { StatusDialogComponent } from './components/status-dialog/status-dialog.component';
 import { StickyNotesDialogComponent } from './components/sticky-notes-dialog/sticky-notes-dialog.component';
+import { AparelhoUpdateDialogComponent } from './components/aparelho-update-dialog/aparelho-update-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { StickyNotesDialogComponent } from './components/sticky-notes-dialog/sti
       StickyNotesTableComponent,
       PersonDialogUpdateComponent,
       StatusDialogComponent,
-      StickyNotesDialogComponent
+      StickyNotesDialogComponent,
+      AparelhoUpdateDialogComponent
   ],
   imports: [
     CommonModule,

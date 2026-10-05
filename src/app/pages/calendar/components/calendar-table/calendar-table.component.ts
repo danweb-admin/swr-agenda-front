@@ -16,6 +16,7 @@ import { StatusDialogComponent } from '../status-dialog/status-dialog.component'
 import { StickyNotesDialogComponent } from '../sticky-notes-dialog/sticky-notes-dialog.component';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { UserService } from 'src/app/shared/services/user.service';
+import { AparelhoUpdateDialogComponent } from '../aparelho-update-dialog/aparelho-update-dialog.component';
 
 
 
@@ -132,6 +133,22 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
       const dialogRef = this.dialog.open(CalendarDialogComponent, {
         width: '700px',
         height: '600px',
+        disableClose: true,
+        data: {element}
+      });
+      
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === undefined)
+        return;
+        
+        this.getCalendars();           
+      });
+    }
+
+    openDialogEquipamento(element: Calendar){
+      const dialogRef = this.dialog.open(AparelhoUpdateDialogComponent, {
+        width: '400px',
+        height: '250px',
         disableClose: true,
         data: {element}
       });

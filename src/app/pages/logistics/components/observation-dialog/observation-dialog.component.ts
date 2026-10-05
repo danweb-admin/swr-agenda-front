@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { ToastrService } from "ngx-toastr";
+
 import { LogisticsService } from "src/app/shared/services/logistics.service";
 
 @Component({
@@ -9,51 +9,59 @@ import { LogisticsService } from "src/app/shared/services/logistics.service";
   templateUrl: './observation-dialog.component.html',
   styleUrls: ['./observation-dialog.component.scss'],
 })
-export class ObservationDialogComponent implements OnInit{
-  
-  @Input() observacao = '';
-  
+export class ObservationDialogComponent implements OnInit {
+
+  @Input() observacao: any;
+
   @Output() close = new EventEmitter<void>();
+
   form: FormGroup;
-  formBuilder: any;
-  
-  
-  constructor(public dialogRef: MatDialogRef<ObservationDialogComponent>,
+
+  constructor(
     private fb: FormBuilder,
     private logisticService: LogisticsService,
-    private toastr: ToastrService,
-    @Inject(MAT_DIALOG_DATA) public data: any){
-    
-      
-    }
-    ngOnInit(): void {
+    private toastr: ToastrService
+  ) {}
 
-      console.log(this.data)
-      this.form = this.fb.group({
-        id:[this.data.element.id],
-        observacao:[this.data.element.observacao],
-      });
-    }
-    fechar(): void {
-      this.close.emit();
-    }
-    
-    onNoClick(): void {
-      this.dialogRef.close();
-    }
-    
-    onSubmit(): void {
+  ngOnInit(): void {
 
+    console.log(this.observacao);
 
-      this.logisticService.updateObservacao(
-        this.form.value
-      ).subscribe((resp) => {
-        this.toastr.success('Observação atualizada com sucesso');
-      
-        this.dialogRef.close(resp);
-      }, (error: any) => {
-        this.toastr.warning(error.error?.errorMessage)
-      })
-      
-    }
+    this.form = this.fb.group({
+      id: [this.observacao.id],
+      observacao: [this.observacao.observacao],
+    });
   }
+
+  fechar(): void {
+    this.close.emit();
+  }
+
+  onSubmit(): void {
+
+    this.logisticService.updateObservacao(
+      this.form.value
+    ).subscribe(
+      (resp) => {
+
+        this.toastr.success(
+          'Observação atualizada com sucesso'
+        );
+
+        this.close.emit();
+
+      },
+      (error: any) => {
+
+        this.toastr.warning(
+          error.error?.errorMessage
+        );
+
+      }
+    );
+  }
+
+  onNoClick(){
+    
+  }
+}

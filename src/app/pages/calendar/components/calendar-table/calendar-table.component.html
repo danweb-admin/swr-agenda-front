@@ -27,38 +27,26 @@
             </button>
         </div>
     </mat-card-title>
-  
+    
     <mat-card-content >
         <table class="calendar-table__table" >
             <thead>
                 <th style="text-align: left;" class="padding-left-5"> EQUIPAMENTO </th>
-                <th style="text-align: left;" class="padding-left-5"> PONTEIRAS </th>
                 <th style="text-align: left;" class="padding-left-5"> LOCATÁRIO </th>
-                <th style="text-align: left;" class="padding-left-5"> PGTO </th>
                 <th style="text-align: left;" class="padding-left-5"> HORÁRIO </th>
-                <th style="text-align: left;" class="padding-left-5"> TÉCNICA </th>
                 <th style="text-align: left;" class="padding-left-5"> STATUS </th>
-                <th style="text-align: left;" class="padding-left-5"> USUÁRIO </th>
-                <th style="text-align: left;" class="padding-left-5"> ENTREGA </th>
-                <th style="text-align: left;" class="padding-left-5"> RECOLHE </th>
-                <th style="text-align: left;" class="padding-left-5"> </th>
-                <th style="text-align: left;" class="padding-left-5"> </th>
+                <th style="text-align: left;" class="padding-left-5"> MOTORISTA </th>
+                <th style="text-align: left;" class="padding-left-5"> TROCAR AP. </th>
+                
             </thead>
             <tbody>
                 <tr *ngFor="let element of dataSource">
-                    <td style="width: 15%;">
+                    <td>
                         <div class="padding-left-5">
                             {{element.equipament.name}}
                         </div>
                     </td>
-                    <td class="cell-hyphens" style="width: 15%">
-                        <div *ngFor="let item of element.calendars">
-                            <div class="row padding-left-5" (click)="openDialog(item)">
-                                {{showSpecifications(item)}}
-                            </div>
-                        </div>
-                    </td>
-                    <td class="cell-hyphens" style="width: 30%">
+                    <td>
                         <div *ngFor="let item of element.calendars">
                             <div class="row padding-left-5" (click)="openDialog(item)">
                                 
@@ -68,72 +56,44 @@
                                 
                                 {{showAddress(item)}}
                             </div>
-                            
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngFor="let item of element.calendars">
-                            <div class="row padding-left-5">
-                                <mat-icon *ngIf="item.paymentStatus == 'pending'" class="red">block</mat-icon>
-                                <mat-icon *ngIf="item.paymentStatus == 'paid'" class="limegreen">check</mat-icon>
+                            <div class="row padding-left-5" (click)="openDialog(item)">
+                                
+                                {{showContact(item)}}
                             </div>
                         </div>
                     </td>
                     <td>
-                        <div *ngFor="let item of element.calendars" (click)="openDialog(item)">
+                        <div *ngFor="let item of element.calendars" >
                             <div class="row padding-left-5">
                                 {{showTime(item)}}
                             </div>
                         </div>
                     </td>
-                    <td>
-                        <div *ngFor="let item of element.calendars" (click)="openDialogTechnique(item)">
-                            <div class="row padding-left-5" >
-                                {{item.technique?.name}}
-                            </div>
-                        </div>
-                    </td>
+                    
                     
                     <td>
-                        <div *ngFor="let item of element.calendars" (click)="openDialogStatus(item,false)">
+                        <div *ngFor="let item of element.calendars" >
                             <div class="calendar-table__content-badge" [ngClass]="statusToString(item.status)">
                                 {{statusToString(item.status)}}
                             </div>
                         </div>
                     </td>
+                    
                     <td>
-                        <div *ngFor="let item of element.calendars" (click)="openDialog(item)">
-                            <div class="row padding-left-5">
-                                {{item.user.nickName}}
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngFor="let item of element.calendars" (click)="openDialogDriver(item,false)">
+                        <div *ngFor="let item of element.calendars">
                             <div class="row padding-left-5">
                                 {{item.driver?.name}}
                             </div>
                         </div>
                     </td>
                     <td>
-                        <div *ngFor="let item of element.calendars" (click)="openDialogDriver(item,true)">
+                        <div *ngFor="let item of element.calendars">
                             <div class="row padding-left-5">
-                                {{item.driverCollects?.name}}
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngFor="let item of element.calendars" (click)="openDialogStatus(item,true)">
-                            <div class="row padding-left-5">
-                                <mat-icon>{{showIconTravelOn(item.travelOn)}}</mat-icon>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngFor="let item of element.calendars" (click)="updateContractMade(item)">
-                            <div class="row padding-left-5">
-                                <mat-icon *ngIf="!item.contractMade" class="red">block</mat-icon>
-                                <mat-icon *ngIf="item.contractMade" class="limegreen">check</mat-icon>
+                                <button mat-icon-button class="tooltip"  (click)="openDialogEquipamento(item)">
+                                    <span class="tooltiptext">Troca aparelho</span>
+                                    <mat-icon>swap_vertical_circle</mat-icon>
+                                </button>
+                                
                             </div>
                         </div>
                     </td>
@@ -141,18 +101,18 @@
             </tbody>
         </table>
     </mat-card-content>
-  </mat-card>
-  <mat-card *ngIf="isAdmin">
+</mat-card>
+<mat-card *ngIf="isAdmin">
     <mat-card-title>
         <h5>Anotações do dia</h5>
     </mat-card-title>
     <mat-card-content style="min-height: 100px;">
         <app-sticky-notes-table [today]="time"></app-sticky-notes-table>
     </mat-card-content>
-  </mat-card>
+</mat-card>
 
 
-  <mat-card class="calendar-table" *ngIf="!isAdmin">
+<mat-card class="calendar-table" *ngIf="!isAdmin">
     <mat-card-title class="calendar-table__header">
         <h5 class="calendar-table__title">Agenda do dia {{time | date:'dd/MM/yyyy EE' : '' : 'pt-BR'}}</h5>
         
@@ -173,7 +133,7 @@
             </div>
         </div>
     </mat-card-title>
-  
+    
     <mat-card-content >
         <table class="calendar-table__table" >
             <thead>
@@ -234,13 +194,12 @@
             </tbody>
         </table>
     </mat-card-content>
-  </mat-card>
-  <mat-card *ngIf="!isAdmin">
+</mat-card>
+<mat-card *ngIf="!isAdmin">
     <mat-card-title>
         <h5>Anotações do dia</h5>
     </mat-card-title>
     <mat-card-content style="min-height: 100px;">
         <app-sticky-notes-table [today]="time"></app-sticky-notes-table>
     </mat-card-content>
-  </mat-card>
-  
+</mat-card>

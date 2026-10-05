@@ -65,6 +65,17 @@ export class CalendarService {
     }))
   }
 
+  updateEquipment( calendarId: string, equipamentId: string): Observable<Calendar> {
+    let put = {
+      calendarId,
+      equipamentId
+    }
+    return this.http.put(`${environment.URL_API}${URL_CALENDARS}/update-equipment`,put)
+    .pipe(map((resp: Calendar) => {
+      return resp;
+    }))
+  }
+
   updateStatusOrTravelOnCalendar(status: string, calendarId: string, isTravelOn: boolean, travelOn: string): Observable<Calendar> {
     let put = {
       status,

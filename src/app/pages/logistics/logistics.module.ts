@@ -46,6 +46,7 @@ import { DataLogDialogComponent } from './components/data-log-dialog/data-log-di
     MatFormFieldModule,
     MatDialogModule,
     MatTabsModule,
+    MatDialogModule,
     SharedModule,
     NgxMaskModule.forChild(),
   ],
