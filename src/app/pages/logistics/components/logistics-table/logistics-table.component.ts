@@ -13,6 +13,7 @@ import { ObservationDialogComponent } from '../observation-dialog/observation-di
 import { DataLogDialogComponent } from '../data-log-dialog/data-log-dialog.component';
 import { PersonService } from 'src/app/shared/services/people.service';
 import { Person } from 'src/app/shared/models/person';
+import { ObservationGoogleDialogComponent } from '../observation-google-dialog/observation-google-dialog.component';
 
 @Component({
     selector: 'app-logistics-table',
@@ -133,8 +134,9 @@ export class LogisticsTableComponent implements OnInit {
         });
         
         dialogRef.afterClosed().subscribe(result => {
-            if (result === undefined)
-                return;
+            
+            // if (result === undefined)
+            //     return;
             
             this.carregar();           
         });
@@ -171,11 +173,19 @@ export class LogisticsTableComponent implements OnInit {
         }
     }
     
-    abrirObservacao(item: any): void {
-        
-        this.observacaoSelecionada = item.observacaoGoogle;
-        this.showObservacao = true;
-    }
+    
+
+    abrirObservacao(html): void {
+        console.log(html)
+        this.dialog.open(ObservationGoogleDialogComponent, {
+            width: '700px',
+            maxWidth: '95vw',
+            maxHeight: '90vh',
+            data: {
+            html: html
+            }
+        });
+        }
     
     fecharObservacao(): void {
         this.showObservacao = false;

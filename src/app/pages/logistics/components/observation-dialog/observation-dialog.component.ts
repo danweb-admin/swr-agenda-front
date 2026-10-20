@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { ToastrService } from "ngx-toastr";
 
 import { LogisticsService } from "src/app/shared/services/logistics.service";
@@ -20,21 +21,22 @@ export class ObservationDialogComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private logisticService: LogisticsService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private dialogRef: MatDialogRef<ObservationDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   ngOnInit(): void {
-
-    console.log(this.observacao);
-
+console.log(this.data)
     this.form = this.fb.group({
-      id: [this.observacao.id],
-      observacao: [this.observacao.observacao],
+      id: [this.data.element.id],
+      observacao: [this.data.element.observacao],
     });
   }
 
   fechar(): void {
-    this.close.emit();
+    this.dialogRef.close();
+
   }
 
   onSubmit(): void {
@@ -48,7 +50,7 @@ export class ObservationDialogComponent implements OnInit {
           'Observação atualizada com sucesso'
         );
 
-        this.close.emit();
+        this.dialogRef.close();
 
       },
       (error: any) => {

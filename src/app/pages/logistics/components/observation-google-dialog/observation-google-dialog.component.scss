@@ -1,0 +1,23 @@
+.conteudo-locacao {
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  color: #333;
+}
+
+.conteudo-locacao b {
+  font-weight: 700;
+}
+
+.conteudo-locacao ul {
+  padding-left: 24px;
+}
+
+.conteudo-locacao li {
+  margin: 8px 0;
+}
+
+mat-dialog-content {
+  max-height: 70vh;
+  overflow-y: auto;
+}

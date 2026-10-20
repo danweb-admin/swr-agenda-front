@@ -111,7 +111,7 @@
     <td>
         <button
         mat-icon-button
-        (click)="abrirObservacao(item)">
+        (click)="abrirObservacao(item.observacaoGoogle)">
         <mat-icon>
             note_alt
         </mat-icon>
@@ -122,9 +122,3 @@
 </table>
 </mat-card-content>
 </mat-card>
-
-<app-observation-dialog
-    *ngIf="showObservacao"
-    [observacao]="observacaoSelecionada"
-    (close)="fecharObservacao()">
-</app-observation-dialog>

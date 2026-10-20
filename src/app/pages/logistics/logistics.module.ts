@@ -22,6 +22,7 @@ import { LogisticsDialogComponent } from './components/logistics-dialog/logistic
 import { DriverDialogComponent } from './components/driver-dialog/driver-dialog.component';
 import { ObservationDialogComponent } from './components/observation-dialog/observation-dialog.component';
 import { DataLogDialogComponent } from './components/data-log-dialog/data-log-dialog.component';
+import { ObservationGoogleDialogComponent } from './components/observation-google-dialog/observation-google-dialog.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { DataLogDialogComponent } from './components/data-log-dialog/data-log-di
       LogisticsDialogComponent,
       DriverDialogComponent,
       ObservationDialogComponent,
+      ObservationGoogleDialogComponent,
       DataLogDialogComponent
   ],
   imports: [
