@@ -14,6 +14,8 @@ import { DataLogDialogComponent } from '../data-log-dialog/data-log-dialog.compo
 import { PersonService } from 'src/app/shared/services/people.service';
 import { Person } from 'src/app/shared/models/person';
 import { ObservationGoogleDialogComponent } from '../observation-google-dialog/observation-google-dialog.component';
+import { AcessorioDialogComponent } from '../acessorios-dialog/acessorios-dialog.component';
+import { log } from 'console';
 
 @Component({
     selector: 'app-logistics-table',
@@ -99,6 +101,8 @@ export class LogisticsTableComponent implements OnInit {
                 this.filteredLogistics = [...resp];
                 
                 this.loading = false;
+                console.log(resp);
+                
             },
             
             error: () => {
@@ -115,6 +119,24 @@ export class LogisticsTableComponent implements OnInit {
             height: '250px',
             disableClose: true,
             data: {element, isDriver, isCollect}
+        });
+        
+        dialogRef.afterClosed().subscribe(result => {
+            if (result === undefined)
+                return;
+            
+            this.carregar();           
+        });
+    }
+
+    openDialogAcessorio(element: any){
+        let isDriver = true;
+        
+        const dialogRef = this.dialog.open(AcessorioDialogComponent, {
+            width: '400px',
+            height: '250px',
+            disableClose: true,
+            data: {element}
         });
         
         dialogRef.afterClosed().subscribe(result => {

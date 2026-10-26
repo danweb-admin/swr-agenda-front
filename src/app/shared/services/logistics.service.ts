@@ -65,6 +65,14 @@ export class LogisticsService {
       return resp;
     }));
   }
+
+   updateAcessorio(data): Observable<any>{
+    
+    return this.http.put(`${environment.URL_API}${URL_LOGISTICS}/atualizar-acessorio/${data.id}`,data)
+    .pipe(map((resp: any) => {
+      return resp;
+    }));
+  }
   
   complete(id: string, concluido: boolean) {
     return this.http.put(`${environment.URL_API}${URL_LOGISTICS}/${id}/complete`, concluido)

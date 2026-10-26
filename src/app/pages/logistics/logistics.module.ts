@@ -23,6 +23,7 @@ import { DriverDialogComponent } from './components/driver-dialog/driver-dialog.
 import { ObservationDialogComponent } from './components/observation-dialog/observation-dialog.component';
 import { DataLogDialogComponent } from './components/data-log-dialog/data-log-dialog.component';
 import { ObservationGoogleDialogComponent } from './components/observation-google-dialog/observation-google-dialog.component';
+import { AcessorioDialogComponent } from './components/acessorios-dialog/acessorios-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ObservationGoogleDialogComponent } from './components/observation-googl
       DriverDialogComponent,
       ObservationDialogComponent,
       ObservationGoogleDialogComponent,
-      DataLogDialogComponent
+      DataLogDialogComponent,
+      AcessorioDialogComponent
   ],
   imports: [
     CommonModule,
