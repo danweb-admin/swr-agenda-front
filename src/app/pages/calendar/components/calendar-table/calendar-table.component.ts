@@ -126,6 +126,7 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
       let date = this.time.format('YYYY-MM-DD');
       this.calendarService.getCalendarByDay(date).subscribe((resp: any) => {
         this.dataSource = resp;
+        console.log(resp)
       });
     }
     
@@ -291,6 +292,9 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
     }
 
     formatarTelefone(valor: string): string {
+      if (valor === null){
+        return '-'
+      }
       
       const apenasNumeros = valor.replace(/\D/g, '');
       
